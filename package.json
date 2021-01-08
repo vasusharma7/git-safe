@@ -12,7 +12,6 @@
   "devDependencies": {
     "pre-push": "^0.1.1"
   },
-  "pre-push":{
-	  "run": ["test"]
-  }
+  "pre-push": ["test"]
+	  
 }
