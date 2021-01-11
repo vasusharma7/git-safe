@@ -1,4 +1,4 @@
-my_array=( $(grep -r  -E -n "/\*[ ]git-safe[ ]\*/" * | cut -d : -f 1,2) )
+my_array=( $(grep -r --exclude=exec.js -E -n "/\*[ ]git-safe[ ]\*/" * | cut -d : -f 1,2) )
 echo ${#my_array[@]}
 
 echo "${my_array[*]}"
