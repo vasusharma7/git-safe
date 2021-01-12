@@ -5,7 +5,8 @@
   "main": "secret.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "push": "./pre-push"
+    "push": "./pre-push",
+    "postinstall": "chmod +x ./install.sh && ./install.sh"
   },
   "author": "",
   "license": "ISC",
