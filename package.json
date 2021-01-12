@@ -12,6 +12,11 @@
   "devDependencies": {
     "pre-push": "^0.1.1"
   },
-  "pre-push": ["test"]
-	  
+  "pre-push": [
+    "test"
+  ],
+  "dependencies": {
+    "replace-in-file": "^6.1.0",
+    "shelljs": "^0.8.4"
+  }
 }
