@@ -54,7 +54,7 @@ async function modifySecret(file_path, line) {
   const encrypted_text = getEncryptedText();
 
   target[1] = JSON.stringify(encrypted_text);
-  target = target.join(' /* git-safe */ ');
+  target = target.join('/* git-safe */');
   const options = {
     files: file_path,
     from: line,
