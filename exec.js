@@ -127,7 +127,7 @@ results.forEach((entry) => {
 Promise.all(modifyPromises)
   .then((encryptedLines) => {
     //commit to git
-    shell.exec('./git.sh');
+    shell.exec('node_modules/git-safe/git.sh');
 
     //console.log(encryptedLines);
     results.forEach((entry, index) => {
