@@ -47,7 +47,7 @@ async function modifySecret(file_path, line) {
   //open the file
 
   const trim = (str, chars) => str.split(chars).filter(Boolean).join(chars);
-  let target = line.split(/\/\*[ ]git-safe[ ]\*\//);
+  let target = line.split(/\/\*\s*git-safe\s*\*\//);
   let secretKey = target[1].trim();
   secretKey = trim(secretKey, ';').slice(1, -1);
   console.log('key: ', secretKey);
