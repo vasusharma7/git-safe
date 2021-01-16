@@ -3,10 +3,12 @@
   "version": "1.0.0",
   "description": "To encrypt sensitive information before pushing to the remote git repository",
   "main": "secret.js",
+  "bin": {
+    "git-safe": "index.js"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "push": "./pre-push",
-    "postinstall": "chmod +x ./install.sh && ./install.sh"
+    "test": "chmod +x ./install.sh && ./install.sh"
   },
   "author": "",
   "license": "ISC",
@@ -17,7 +19,13 @@
     "test"
   ],
   "dependencies": {
+    "husky": "^4.3.8",
     "replace-in-file": "^6.1.0",
     "shelljs": "^0.8.4"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": ""
+    }
   }
 }
