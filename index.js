@@ -1,19 +1,20 @@
 #!/usr/bin/env node
 const shell = require('shelljs');
+let pathToPackage = require('global-modules-path').getPath('git-safe');
 switch (process.argv[2]) {
   case 'encrypt':
     {
-      shell.exec('./git-safe.sh encrypt');
+      shell.exec(`bash ${pathToPackage}/git-safe.sh encrypt ${pathToPackage}`);
     }
     break;
   case 'decrypt':
     {
-      shell.exec('./git-safe.sh decrypt');
+      shell.exec(`bash ${pathToPackage}/git-safe.sh decrypt ${pathToPackage}`);
     }
     break;
   case 'commit':
     {
-      shell.exec('./git-safe.sh commit');
+      shell.exec(`bash ${pathToPackage}/git-safe.sh commit ${pathToPackage}`);
     }
     break;
   default: {

@@ -19,6 +19,7 @@
     "test"
   ],
   "dependencies": {
+    "global-modules-path": "^2.3.1",
     "husky": "^4.3.8",
     "replace-in-file": "^6.1.0",
     "shelljs": "^0.8.4"

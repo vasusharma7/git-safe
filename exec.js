@@ -1,6 +1,7 @@
 const utils = require('./utils.js');
 const shell = require('shelljs');
 const replace = require('replace-in-file');
+let pathToPackage = require('global-modules-path').getPath('git-safe');
 let encryption_key;
 let mode;
 const trim = (str, chars) => str.split(chars).filter(Boolean).join(chars);
@@ -76,8 +77,9 @@ results.forEach((entry) => {
 Promise.all(modifyPromises)
   .then((encryptedLines) => {
     //commit to git
+
     if (mode === 'commit') {
-      shell.exec('./git.sh');
+      shell.exec(`${pathToPackage}/git.sh`);
 
       results.forEach((entry, index) => {
         revertSecret(entry.file_path, encryptedLines[index], entry.line);
