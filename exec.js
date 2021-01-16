@@ -79,7 +79,8 @@ Promise.all(modifyPromises)
     //commit to git
 
     if (mode === 'commit') {
-      shell.exec(`${pathToPackage}/git.sh`);
+      //shell.exec(`${pathToPackage}/git.sh`);
+      shell.exec('git add .');
 
       results.forEach((entry, index) => {
         revertSecret(entry.file_path, encryptedLines[index], entry.line);
