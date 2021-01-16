@@ -1,0 +1,33 @@
+{
+  "name": "git-safe",
+  "version": "1.0.0",
+  "description": "To encrypt sensitive information before pushing to the remote git repository",
+  "main": "secret.js",
+  "bin": {
+    "git-safe": "index.js"
+  },
+  "scripts": {
+    "push": "./pre-push",
+    "test": "chmod +x ./install.sh && ./install.sh"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "pre-push": "^0.1.1"
+  },
+  "pre-push": [
+    "test"
+  ],
+  "dependencies": {
+    "glob": "^7.1.6",
+    "global-modules-path": "^2.3.1",
+    "husky": "^4.3.8",
+    "replace-in-file": "^6.1.0",
+    "shelljs": "^0.8.4"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": ""
+    }
+  }
+}
