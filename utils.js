@@ -1,5 +1,6 @@
 const crypto = require('crypto');
 const algorithm = 'aes-192-cbc';
+
 function getEncryptionKey(password) {
   try {
     // generate the 24 byte key required
@@ -11,6 +12,7 @@ function getEncryptionKey(password) {
     process.exit(1);
   }
 }
+
 function getEncryptedText(encryption_key, plain_text) {
   let iv;
 
@@ -34,6 +36,21 @@ function getEncryptedText(encryption_key, plain_text) {
   return encrypted_text;
 }
 function getDecryptedText(encryption_key, encrypted_text) {
-  //
+  try {
+    console.log("decrypting...");
+    let iv;
+
+    iv = Buffer.alloc(16, 1);
+
+    const decipher = crypto.createDecipheriv(algorithm, Buffer.from(encryption_key), iv);
+
+    let decrypted = decipher.update(Buffer.from(encrypted_text, 'hex'));
+    decrypted = Buffer.concat([decrypted, decipher.final()]);
+
+    return decrypted.toString();
+  } catch(err) {
+    console.log(err);
+  }
 }
-module.exports = { getEncryptedText, getEncryptionKey };
+
+module.exports = { getEncryptedText, getEncryptionKey, getDecryptedText };
