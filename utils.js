@@ -1,4 +1,5 @@
 const crypto = require('crypto');
+const process = require('process');
 const algorithm = 'aes-192-cbc';
 
 function getEncryptionKey(password) {
@@ -37,19 +38,25 @@ function getEncryptedText(encryption_key, plain_text) {
 }
 function getDecryptedText(encryption_key, encrypted_text) {
   try {
-    console.log("decrypting...");
+    console.log('decrypting...');
     let iv;
 
     iv = Buffer.alloc(16, 1);
 
-    const decipher = crypto.createDecipheriv(algorithm, Buffer.from(encryption_key), iv);
+    const decipher = crypto.createDecipheriv(
+      algorithm,
+      Buffer.from(encryption_key),
+      iv
+    );
 
     let decrypted = decipher.update(Buffer.from(encrypted_text, 'hex'));
     decrypted = Buffer.concat([decrypted, decipher.final()]);
 
+    console.log('decrypted text:', decrypted.toString());
     return decrypted.toString();
-  } catch(err) {
-    console.log(err);
+  } catch (err) {
+    process.exit(2);
+    //console.log(err);
   }
 }
 
