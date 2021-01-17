@@ -6,6 +6,13 @@ exec </dev/tty
 
 echo -n "Enter Password:";
 read passkey
+
+if [ "$passkey" == '' ]
+then
+  echo "[Fatal]: password required";
+  exit 1;
+fi
+
 IFS=$'\n'
 my_array=( $(grep -r --exclude-dir=node_modules --exclude=exec.js -E -n "\/\*\s*git-safe\s*\*\/" *) )
 echo ${#my_array[@]}
