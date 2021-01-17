@@ -1,9 +1,8 @@
 #!/bin/bash
-#echo -n "Enter Encryption Password:";
-#read passkey
-passkey="TruMP"
+echo -n "Enter Password:";
+read passkey
 IFS=$'\n'
-my_array=( $(grep -r --exclude-dir=node_modules -E -n "\/\*\s*git-safe\s*\*\/" *) )
+my_array=( $(grep -r --exclude-dir=node_modules --exclude=exec.js -E -n "\/\*\s*git-safe\s*\*\/" *) )
 echo ${#my_array[@]}
 
 echo "${my_array[*]}"
