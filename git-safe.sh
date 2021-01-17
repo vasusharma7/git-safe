@@ -1,4 +1,9 @@
 #!/bin/bash
+
+# To allow reading password typed by user
+# Reference: https://stackoverflow.com/questions/48509786/shell-script-hangs-when-it-should-read-input-only-when-run-from-node-js 
+exec </dev/tty
+
 echo -n "Enter Password:";
 read passkey
 IFS=$'\n'
