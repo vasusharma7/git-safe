@@ -1,11 +1,19 @@
 #!/bin/bash
-#echo -n "Enter Encryption Password:";
-#read passkey
-RED='\033[0;31m'
-NC='\033[0m' # No Color
-passkey="TruMp"
+# To allow reading password typed by user
+# Reference: https://stackoverflow.com/questions/48509786/shell-script-hangs-when-it-should-read-input-only-when-run-from-node-js 
+exec </dev/tty
+
+echo -n "Enter Password:";
+read passkey
+
+if [ "$passkey" == '' ]
+then
+  echo "[Fatal]: password required";
+  exit 1;
+fi
+
 IFS=$'\n'
-my_array=( $(grep -r --exclude-dir=node_modules -E -n "\/\*\s*git-safe\s*\*\/" *) )
+my_array=( $(grep -r --exclude-dir=node_modules --exclude=exec.js -E -n "\/\*\s*git-safe\s*\*\/" *) )
 if [[ ${#my_array[@]} -eq 0 ]]
 then
   echo -e "[git-safe]: No files with ${RED}/* git-safe */${NC} comment found !"
