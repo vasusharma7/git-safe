@@ -1,14 +1,14 @@
-const crypto = require('crypto');
-const process = require('process');
-const algorithm = 'aes-192-cbc';
+const crypto = require("crypto");
+const process = require("process");
+const algorithm = "aes-192-cbc";
 
 function getEncryptionKey(password) {
   try {
     // generate the 24 byte key required
-    const key = crypto.scryptSync(password, 'salt', 24);
+    const key = crypto.scryptSync(password, "salt", 24);
     return key;
   } catch (err) {
-    console.log('Error while creating key');
+    console.log("Error while creating key");
     console.log(err);
     process.exit(1);
   }
@@ -31,14 +31,14 @@ function getEncryptedText(encryption_key, plain_text) {
 
   const cipher = crypto.createCipheriv(algorithm, encryption_key, iv);
 
-  let encrypted_text = cipher.update(plain_text, 'utf8', 'hex');
-  encrypted_text += cipher.final('hex');
-  console.log('encrypted text:', encrypted_text);
+  let encrypted_text = cipher.update(plain_text, "utf8", "hex");
+  encrypted_text += cipher.final("hex");
+  console.log("encrypted text:", encrypted_text);
   return encrypted_text;
 }
 function getDecryptedText(encryption_key, encrypted_text) {
   try {
-    console.log('decrypting...');
+    console.log("decrypting...");
     let iv;
 
     iv = Buffer.alloc(16, 1);
@@ -49,14 +49,16 @@ function getDecryptedText(encryption_key, encrypted_text) {
       iv
     );
 
-    let decrypted = decipher.update(Buffer.from(encrypted_text, 'hex'));
+    let decrypted = decipher.update(Buffer.from(encrypted_text, "hex"));
     decrypted = Buffer.concat([decrypted, decipher.final()]);
 
-    console.log('decrypted text:', decrypted.toString());
+    console.log("decrypted text:", decrypted.toString());
     return decrypted.toString();
   } catch (err) {
-    process.exit(2);
-    //console.log(err);
+    if (err.code === "ERR_OSSL_EVP_BAD_DECRYPT") process.exit(2);
+    else if (err.code === "ERR_OSSL_EVP_WRONG_FINAL_BLOCK_LENGTH")
+      process.exit(3);
+    else exit(0);
   }
 }
 
