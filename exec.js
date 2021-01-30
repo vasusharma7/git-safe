@@ -37,7 +37,7 @@ async function modifySecret(file_path, line) {
     to: target,
   };
   try {
-    const results = await replace(options);
+    const results = replace.sync(options);
     console.log("Replacement results:", results);
     return target;
   } catch (error) {
