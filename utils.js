@@ -1,5 +1,9 @@
 const crypto = require("crypto");
 const process = require("process");
+var glob = require('glob');
+const fs = require('fs');
+const readline = require('readline');
+
 const algorithm = "aes-192-cbc";
 
 function getEncryptionKey(password) {
@@ -62,4 +66,30 @@ function getDecryptedText(encryption_key, encrypted_text) {
   }
 }
 
-module.exports = { getEncryptedText, getEncryptionKey, getDecryptedText };
+/**
+ * This function returns all the file which are part of ".gitsafe" file which is located at root of repository 
+ * @returns Array of files part of .gitsafe
+ */
+function getFilesFromGitSafe() {
+  // find a way to get location of .gitsafe
+  let gitSafeFilePath = process.env.basepath
+  const fileStream = fs.createReadStream(gitSafeFilePath);
+  const rl = readline.createInterface({
+    input: fileStream,
+    crlfDelay: Infinity
+  });
+
+  let filesArray = []
+
+  for (const line of rl) {
+    // Each line in input.txt will be successively available here as `line`.
+    console.log(`Line from file: ${line}`);
+    glob(line, function(err, files){
+      filesArray.concat(files)
+    });
+  }
+
+  return filesArray
+}
+
+module.exports = { getEncryptedText, getEncryptionKey, getDecryptedText, getFilesFromGitSafe };
