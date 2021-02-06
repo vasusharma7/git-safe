@@ -41,8 +41,9 @@ switch (process.argv[2]) {
   default: {
     console.log("executing thru git-safe");
     //encrypt
-    //shell.exec("git " + process.argv.splice(2).join(" "));
-    spawn("git", process.argv.splice(2), { shell: true, stdio: "inherit" });
+    shell.exec("git " + process.argv.splice(2).join(" "));
+    //console.log(process.argv.splice(2));
+    //spawn("git", process.argv.splice(2), { shell: true, stdio: "inherit" });
     //decrypt
   }
 }
