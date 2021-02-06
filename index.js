@@ -8,13 +8,18 @@ const { spawn } = require("child_process");
  *
  *
  * Or run below block of code
-/*
-shell.exec(
-  "echo 'git() { if [[ ${GITSAFE_PATH[@]} =~ $(pwd) ]] ; then git-safe $@ ; else $(which git) $@ ;  fi }' >> ~/.bashrc "
-);
+ */
+
 shell.exec(`echo "GITSAFE_PATH=()" >> ~/.bashrc`);
+shell.exec(
+  "echo 'git() { if [[ ${GITSAFE_PATH[@]} =~ $(pwd) ]] ; then git-safe " +
+    '"$@"' +
+    "; else $(which git) " +
+    '"$@"' +
+    " ;  fi }' >> ~/.bashrc "
+);
 shell.exec(`. ~/.bashrc`);
-*/
+
 switch (process.argv[2]) {
   case "init": {
     let pathToPackage = require("global-modules-path").getPath("git-safe");
